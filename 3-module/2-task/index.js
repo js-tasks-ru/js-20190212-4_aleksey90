@@ -4,6 +4,26 @@ let calendar = {
 };
 
 calendar[Symbol.iterator] = function () {
+    let current = this.from;
+    let last = this.to;
+    return {
+        next() {
+            if (current.getTime() >= last.getTime()) {
+                return {
+                    done: true
+                };
+            }    
+            current.setDate(current.getDate() + 1);
+            let str = ('0'+current.getDate()).slice(-2);
+            if (current.getDay() === 0 || current.getDay() === 6) {
+                str = `[${str}]`;
+            }
+            return {
+                done: false,
+                value: str
+            };
+        }
+    }
 };
 
 
