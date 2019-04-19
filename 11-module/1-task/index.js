@@ -37,6 +37,13 @@
          * @param {Element} root - элемент, внутри которого, нужно включить работу подсказок
          */
         attach(root) {
+            document.addEventListener('mouseover', event => {
+                // event.preventDefault();
+                console.log('123');
+                if ( !event.target.hasAttribute('data-tooltip') ) return;
+                this.el.nodeValue = event.target.getAttribute('data-tooltip');
+                root.appendChild(this.el);
+            });
         }
 
         /**
