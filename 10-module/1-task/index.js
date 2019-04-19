@@ -21,10 +21,14 @@
         constructor(data) {
             this.el = document.createElement('table');
             this.data = data;
+            this.init();
+            this.addBehavior();
+        }
 
+        init() {
             const tHead = this.el.createTHead();
             const tBody = this.el.createTBody();
-
+            console.log('123');
             const rowHead = tHead.insertRow();
 
             for (let key in this.data[0]) {
@@ -43,20 +47,22 @@
                 let td = rowBody.insertCell();
                 let link = document.createElement('a');
                 link.setAttribute('href', 'link');
-                rowBody.setAttribute('data-id', data[i].id);
+                rowBody.setAttribute('data-id', this.data[i].id);
                 link.innerText = ' X ';
                 link.style.cssText = `color:blue; text-decoration: underline`;
                 td.appendChild(link);
-
             }
+            this.el.classList.add('pure-table');
+        }
 
-            this.el.addEventListener('click', e => {
-                if ( e.target.getAttribute('href') === 'link' ){
-                  this.onRemoved(+e.target.closest('tr').getAttribute('data-id'));
-                  e.target.closest('tr').remove();
-                  e.preventDefault();
-                }
-              });
+        addBehavior() {
+            this.el.addEventListener('click', event => {
+                if ( event.target.getAttribute('href') !== 'link' ) return ;
+                let num = +event.target.closest('tr').getAttribute('data-id');
+                this.el.deleteRow(num);
+                this.onRemoved(num);
+                event.preventDefault();
+            });
         }
 
         /**
