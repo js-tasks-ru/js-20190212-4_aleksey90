@@ -1,13 +1,7 @@
-(function () {
-
-    class Input extends window.Block {
-
-        get name() {
-            return 'input';
-        }
-
-        setValue() {}
+import Block from './block';
+export default class Input extends Block {
+    get name() {
+        return 'input';
     }
-
-    window.Input = Input;
-})();
+    setValue() {}
+}
