@@ -1,5 +1,5 @@
-import { Block } from './block';
-export class Input extends Block {
+import Block from './block';
+export default class Input extends Block {
     get name() {
         return 'input';
     }
